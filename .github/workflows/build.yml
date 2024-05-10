@@ -122,7 +122,7 @@ jobs:
           python3 -m cibuildwheel --output-dir dist
         env:
           CIBW_BUILD: cp${{ env.MATRIX_PYTHON_VERSION }}-*64
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux-cuda${{ env.MATRIX_CUDA_VERSION }}
+          CIBW_MANYLINUX_X86_64_IMAGE: pytorch/manylinux-cuda${{ env.MATRIX_CUDA_VERSION }}
           CIBW_BEFORE_BUILD_LINUX: >
             bash build_scripts/prepare_for_build.sh
           CIBW_ENVIRONMENT: MAX_JOBS=1 NVTE_NO_LOCAL_VERSION=1 TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0+PTX" AUDITWHEEL_PLAT="manylinux_2_24_$(uname -m)" MATRIX_CUDA_VERSION=${{ env.MATRIX_CUDA_VERSION }} MATRIX_TORCH_VERSION=${{ env.MATRIX_TORCH_VERSION }} MATRIX_PYTHON_VERSION=${{ env.MATRIX_PYTHON_VERSION }} CI_CUDA_VERSION=${{ env.CI_CUDA_VERSION }} CI_TORCH_VERSION=${{ env.CI_TORCH_VERSION }} CI_PYTHON_VERSION=${{ env.CI_PYTHON_VERSION }} TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0+PTX"
