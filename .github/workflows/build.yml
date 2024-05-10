@@ -84,7 +84,7 @@ jobs:
           echo "MANYLINUX_NCCL_CUDA_VERSION=$(python -c "from os import environ as env; print({'118': '2.16.5-1+cuda11.8', '121': '2.19.3-1+cuda12.3'}[env['MATRIX_CUDA_VERSION']])")" >> $GITHUB_ENV
           echo "MANYLINUX_CUDNN_CUDA_VERSION=$(echo ${{ matrix.cuda-version }} | awk -F \. {'print $1'})" >> $GITHUB_ENV
           python3 -m pip install --upgrade pip
-          python3 -m pip install cibuildwheel
+          python3 -m pip install cibuildwheel==2.16.0
 
       - name: Build wheels for Pytorch ${{ matrix.torch-version }}+cu${{ matrix.cuda-version }}
         run: |
