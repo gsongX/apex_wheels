@@ -1,4 +1,4 @@
-python -m pip install -U pip setuptools==60.0 wheel packaging auditwheel-symbols ninja cmake numpy
+python -m pip install -U pip setuptools wheel packaging auditwheel-symbols ninja cmake numpy
 # We want to figure out the CUDA version to download pytorch
 # e.g. we can have system CUDA version being 11.7 but if torch==1.12 then we need to download the wheel from cu116
 # see https://github.com/pytorch/pytorch/blob/main/RELEASE.md#release-compatibility-matrix
@@ -21,3 +21,5 @@ python -m pip install --no-cache-dir torch==${CI_TORCH_VERSION} --index-url http
 # todo: search with regex
 #echo "$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}"
 #sed -i "s/version=\"0.1\"/version=\"$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}\"/g" /project/setup.py
+
+python -c "from packaging.version import parse, Version; print(parse, Version)"
