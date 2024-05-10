@@ -111,6 +111,7 @@ jobs:
           echo "MATRIX_CUDA_VERSION=$(echo ${{ matrix.cuda-version }} | awk -F \. {'print $1 $2'})" >> $GITHUB_ENV
           echo "MATRIX_TORCH_VERSION=$(echo ${{ matrix.torch-version }} | awk -F \. {'print $1 "." $2'})" >> $GITHUB_ENV
           echo "MATRIX_PYTHON_VERSION=$(echo ${{ matrix.python-version }} | awk -F \. {'print $1 $2'})" >> $GITHUB_ENV
+          echo "MANYLINUX_CUDA_VERSION=$(echo ${{ matrix.cuda-version }} | awk -F \. {'print $1 "." $2'})" >> $GITHUB_ENV
 
       - name: Install cibuildwheel
         run: |
@@ -125,7 +126,7 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: pytorch/manylinux-cuda${{ env.MATRIX_CUDA_VERSION }}
           CIBW_BEFORE_BUILD_LINUX: >
             bash build_scripts/prepare_for_build.sh
-          CIBW_ENVIRONMENT: MAX_JOBS=1 NVTE_NO_LOCAL_VERSION=1 TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0+PTX" AUDITWHEEL_PLAT="manylinux_2_24_$(uname -m)" MATRIX_CUDA_VERSION=${{ env.MATRIX_CUDA_VERSION }} MATRIX_TORCH_VERSION=${{ env.MATRIX_TORCH_VERSION }} MATRIX_PYTHON_VERSION=${{ env.MATRIX_PYTHON_VERSION }} CI_CUDA_VERSION=${{ env.CI_CUDA_VERSION }} CI_TORCH_VERSION=${{ env.CI_TORCH_VERSION }} CI_PYTHON_VERSION=${{ env.CI_PYTHON_VERSION }}
+          CIBW_ENVIRONMENT: MAX_JOBS=1 NVTE_NO_LOCAL_VERSION=1 TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0+PTX" AUDITWHEEL_PLAT="manylinux_2_24_$(uname -m)" MATRIX_CUDA_VERSION=${{ env.MATRIX_CUDA_VERSION }} MATRIX_TORCH_VERSION=${{ env.MATRIX_TORCH_VERSION }} MATRIX_PYTHON_VERSION=${{ env.MATRIX_PYTHON_VERSION }} CI_CUDA_VERSION=${{ env.CI_CUDA_VERSION }} CI_TORCH_VERSION=${{ env.CI_TORCH_VERSION }} CI_PYTHON_VERSION=${{ env.CI_PYTHON_VERSION }} MANYLINUX_CUDA_VERSION=${{ env.MANYLINUX_CUDA_VERSION }}
           CIBW_SKIP: "*musllinux*"
           CIBW_BUILD_FRONTEND: "pip; args: --no-build-isolation"
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: "auditwheel repair -w /tmp/cibuildwheel/repaired_wheel {wheel} --exclude libc10.so --exclude libc10_cuda.so --exclude libtorch.so --exclude libtorch_python.so --exclude libtorch_cpu.so --exclude libtorch_cuda.so --exclude libtorch_cuda_cpp.so --exclude libtorch_cuda_cu.so"

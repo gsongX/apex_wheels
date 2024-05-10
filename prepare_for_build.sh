@@ -10,6 +10,8 @@ export TORCH_CUDA_VERSION=$(python -c "from os import environ as env; \
 )
 
 ls -l /usr/local
+rm /usr/local/cuda
+ln -s /usr/local/cuda-${MANYLINUX_CUDA_VERSION} /usr/local/cuda
 
 which python
 which pip
