@@ -19,5 +19,5 @@ echo "install torch==${CI_TORCH_VERSION}+cu${TORCH_CUDA_VERSION}"
 python -m pip install --no-cache-dir torch==${CI_TORCH_VERSION} --index-url https://download.pytorch.org/whl/cu${TORCH_CUDA_VERSION}
 
 # todo: search with regex
-echo "$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}"
-sed -i "s/version=\"0.1\"/version=\"$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}\"/g" /project/setup.py
+#echo "$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}"
+#sed -i "s/version=\"0.1\"/version=\"$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}\"/g" /project/setup.py
