@@ -9,11 +9,16 @@ export TORCH_CUDA_VERSION=$(python -c "from os import environ as env; \
     print(max(min(int(env['MATRIX_CUDA_VERSION']), maxv), minv))" \
 )
 
-python --version
-gcc --version
-python -m pip --version
+ls -l /usr/local
+
 which python
 which pip
+which nvcc
+
+python --version
+python -m pip --version
+gcc --version
+nvcc --version
 
 echo "install torch==${CI_TORCH_VERSION}+cu${TORCH_CUDA_VERSION}"
 python -m pip install --no-cache-dir torch==${CI_TORCH_VERSION} --index-url https://download.pytorch.org/whl/cu${TORCH_CUDA_VERSION}
