@@ -21,4 +21,4 @@ pip install --no-cache-dir torch==${CI_TORCH_VERSION} --index-url https://downlo
 
 # todo: search with regex
 echo "$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}"
-sed "s/version=\"0.1\"/version=\"$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}\"" setup.py
+sed -i "s/version=\"0.1\"/version=\"$(git describe --tags)+cu${TORCH_CUDA_VERSION}torch${CI_TORCH_VERSION}\"/g" setup.py
