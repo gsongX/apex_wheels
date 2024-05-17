@@ -16,8 +16,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
-        torch-version: ["2.1.2", "2.2.2", "2.3.0"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        torch-version: ["2.3.0"]
         cuda-version: ["11.8.0", "12.1.1"]
         exclude:
           # see https://github.com/pytorch/pytorch/blob/main/RELEASE.md#release-compatibility-matrix
@@ -26,6 +26,17 @@ jobs:
             python-version: "3.12"
 
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+    
       - name: Checkout Apex
         uses: actions/checkout@v4
         with:
